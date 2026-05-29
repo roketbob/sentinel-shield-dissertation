@@ -1,0 +1,350 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 340px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(180deg, #020810, #050f1a);
+  color: #f0f4ff;
+}
+
+.container {
+  padding: 20px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.25);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-icon {
+  font-size: 24px;
+}
+
+.logo-text {
+  font-size: 16px;
+  font-weight: 700;
+  color: #c9a84c;
+  letter-spacing: 0.5px;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4caf50;
+  animation: pulse 2s infinite;
+}
+
+.status.threat .status-dot {
+  background: #f44336;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Guardian Message */
+.guardian-message {
+  background: rgba(201, 168, 76, 0.1);
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  border-radius: 10px;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: #c9a84c;
+}
+
+.guardian-icon {
+  font-size: 18px;
+}
+
+.guardian-text {
+  line-height: 1.4;
+}
+
+/* Connection Status (ADDED) */
+.connection-status {
+  background: rgba(76, 175, 80, 0.1);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: #4caf50;
+}
+
+.connection-status.connected {
+  background: rgba(76, 175, 80, 0.15);
+}
+
+.connection-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4caf50;
+  animation: pulse 2s infinite;
+}
+
+/* Current URL */
+.current-url {
+  background: rgba(5, 15, 26, 0.85);
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 15px;
+}
+
+.url-label {
+  font-size: 10px;
+  color: #6b8aad;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+
+.url-value {
+  font-size: 11px;
+  color: #f0f4ff;
+  word-break: break-all;
+  line-height: 1.4;
+}
+
+/* Threat Info */
+.threat-info {
+  background: rgba(244, 67, 54, 0.1);
+  border: 1px solid rgba(244, 67, 54, 0.3);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.threat-icon {
+  font-size: 20px;
+}
+
+.threat-text {
+  font-size: 12px;
+  color: #f44336;
+  line-height: 1.4;
+}
+
+/* Stats */
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.stat {
+  background: rgba(5, 15, 26, 0.85);
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #c9a84c;
+  margin-bottom: 5px;
+  text-shadow: 0 0 10px rgba(201, 168, 76, 0.4);
+}
+
+.stat-label {
+  font-size: 10px;
+  color: #6b8aad;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #c9a84c, #e8c878);
+  color: #020810;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(201, 168, 76, 0.4);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #c9a84c;
+  border: 1px solid rgba(201, 168, 76, 0.25);
+}
+
+.btn-secondary:hover {
+  background: rgba(201, 168, 76, 0.1);
+}
+
+/* Privacy Badge */
+.privacy-badge {
+  background: rgba(76, 175, 80, 0.1);
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 10px;
+  color: #4caf50;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+/* Footer */
+.footer {
+  padding-top: 15px;
+  border-top: 1px solid rgba(201, 168, 76, 0.25);
+  text-align: center;
+}
+
+.version {
+  font-size: 10px;
+  color: #6b8aad;
+  margin-bottom: 5px;
+}
+
+.desktop-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 10px;
+  color: #6b8aad;
+}
+
+.desktop-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #6b8aad;
+}
+
+.desktop-dot.connected {
+  background: #4caf50;
+}
+
+/* Quick Settings (NEW) */
+.quick-settings {
+  background: rgba(5, 15, 26, 0.85);
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.quick-setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  font-size: 12px;
+  color: #f0f4ff;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+}
+
+.quick-setting-item:last-child {
+  border-bottom: none;
+}
+
+.toggle-switch-mini {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 18px;
+}
+
+.toggle-switch-mini input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider-mini {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(201, 168, 76, 0.3);
+  transition: 0.3s;
+  border-radius: 18px;
+}
+
+.toggle-slider-mini:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 2px;
+  bottom: 2px;
+  background-color: #c9a84c;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+.toggle-switch-mini input:checked + .toggle-slider-mini {
+  background-color: rgba(76, 175, 80, 0.5);
+}
+
+.toggle-switch-mini input:checked + .toggle-slider-mini:before {
+  transform: translateX(18px);
+  background-color: #4caf50;
+}

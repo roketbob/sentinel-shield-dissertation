@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentinel Shield</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <canvas id="bg-canvas"></canvas>
+    
+    <div class="sidebar">
+        <div class="logo-section">
+            <div class="logo">🛡️ SENTINEL SHIELD</div>
+            <div class="version">v1.0.0 | OFFLINE</div>
+        </div>
+        <ul class="nav-menu">
+            <li class="active" data-page="dashboard"><span class="nav-icon">📊</span> Dashboard</li>
+            <li data-page="alerts"><span class="nav-icon">⚠️</span> Alerts</li>
+            <li data-page="quarantine"><span class="nav-icon">🔒</span> Quarantine</li>
+            <li data-page="settings"><span class="nav-icon">⚙️</span> Settings</li>
+            <li data-page="guardian"><span class="nav-icon">🤖</span> Guardian</li>
+        </ul>
+        <div class="status-bar">
+            <div class="protection-status">
+                <span class="status-dot" id="sidebar-status-dot"></span>
+                <span id="sidebar-status-text">PROTECTED</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="header-bar">
+            <h1 class="page-title" id="page-title">DASHBOARD</h1>
+            <div class="header-actions">
+                <button class="btn btn-secondary" onclick="requestScan()">🔍 Quick Scan</button>
+                <button class="btn btn-primary" onclick="checkForUpdates()">✅ Check Status</button>
+                <button class="btn" style="background:#c41e3a;color:white;" onclick="simulatePhishingAttack()">🎣 Test Phishing</button>
+                <button class="btn" style="background:#9c27b0;color:white;" onclick="simulateClipboardHijack()">📋 Test Clipboard</button>
+                <button class="btn" style="background:#2196f3;color:white;" onclick="simulateNetworkScan()">🌐 Test Network</button>
+            </div>
+        </div>
+
+        <div class="page-container">
+            <div id="dashboard" class="page-section active">
+                <div class="status-card-large">
+                    <div class="status-info">
+                        <h2 id="main-status-title">YOUR DEVICE IS PROTECTED</h2>
+                        <p id="main-status-description">All systems operational.</p>
+                    </div>
+                    <div class="status-shield">🛡️</div>
+                </div>
+
+                <div class="scan-container" id="scan-container">
+                    <div class="scan-header">
+                        <div class="scan-title">🔍 Quick Scan in Progress</div>
+                        <div class="scan-percentage" id="scan-percentage">0%</div>
+                    </div>
+                    <div class="scan-bar">
+                        <div class="scan-progress" id="scan-progress"></div>
+                    </div>
+                    <div class="scan-status" id="scan-status">Initializing scan...</div>
+                    <div class="scan-items">
+                        <div class="scan-item checked" id="item-system">System Files</div>
+                        <div class="scan-item pending" id="item-memory">Memory</div>
+                        <div class="scan-item pending" id="item-startup">Startup</div>
+                        <div class="scan-item pending" id="item-browser">Browser</div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="card stat-card">
+                        <div class="stat-number" id="protection-status">ACTIVE</div>
+                        <div class="stat-label">Protection</div>
+                    </div>
+                    <div class="card stat-card" style="cursor:pointer;" onclick="showThreatsList()" title="Click to view threats">
+                        <div class="stat-number" id="threat-count">0</div>
+                        <div class="stat-label">Threats (click to view)</div>
+                    </div>
+                    <div class="card stat-card">
+                        <div class="stat-number" id="last-scan">--:--:--</div>
+                        <div class="stat-label">Last Scan</div>
+                    </div>
+                </div>
+
+                <div style="text-align:center; margin-top:10px;">
+                    <button class="btn btn-secondary" style="padding:6px 16px;font-size:11px;" onclick="clearThreatCount()">🗑️ Clear Threat Count</button>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">📋</div>
+                        <div class="card-title">Activity Log</div>
+                        <div style="margin-left:auto; display:flex; gap:8px;">
+                            <button class="btn btn-secondary" style="padding:4px 10px;font-size:10px;" onclick="clearLogs()">🗑️ Clear</button>
+                            <button class="btn btn-secondary" style="padding:4px 10px;font-size:10px;" onclick="exportLogs()">💾 Export</button>
+                        </div>
+                    </div>
+                    <ul class="log-entries" id="dashboard-log">
+                        <li class="log-entry"><div class="log-time">System Start</div><div class="log-message">Security engine initialised.</div></li>
+                    </ul>
+                </div>
+
+                <div class="footer-info">SENTINEL SHIELD © 2025 | OFFLINE MODE</div>
+            </div>
+
+            <div id="alerts" class="page-section">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">⚠️</div>
+                        <div class="card-title">Alerts History</div>
+                        <div style="margin-left:auto; display:flex; gap:8px;">
+                            <button class="btn btn-secondary" style="padding:4px 10px;font-size:10px;" onclick="clearAlerts()">🗑️ Clear All</button>
+                            <button class="btn btn-secondary" style="padding:4px 10px;font-size:10px;" onclick="exportAlerts()">💾 Export</button>
+                        </div>
+                    </div>
+                    <table class="alerts-table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Type</th>
+                                <th>Severity</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="alerts-table-body">
+                            <tr>
+                                <td colspan="5" style="text-align:center;color:var(--muted);padding:30px">No alerts recorded.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="quarantine" class="page-section">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🔒</div>
+                        <div class="card-title">Quarantined Items</div>
+                        <div style="margin-left:auto; display:flex; gap:8px;">
+                            <button class="btn btn-primary" style="padding:4px 10px;font-size:10px;" onclick="restoreAll()">♻️ Restore All</button>
+                            <button class="btn btn-secondary" style="padding:4px 10px;font-size:10px;" onclick="deleteAll()">🗑️ Delete All</button>
+                        </div>
+                    </div>
+                    <table class="alerts-table">
+                        <thead>
+                            <tr>
+                                <th>Quarantine Date</th>
+                                <th>Threat Type</th>
+                                <th>Original Location</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="quarantine-table-body">
+                            <tr>
+                                <td colspan="4" style="text-align:center;color:var(--muted);padding:30px">No items in quarantine.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="settings" class="page-section">
+                <div class="card settings-section">
+                    <h3>🛡️ Protection</h3>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Real-Time Protection</div>
+                            <div class="setting-description">Monitor system activity</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked id="toggle-realtime">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Phishing Detection</div>
+                            <div class="setting-description">Block suspicious sites</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked id="toggle-phishing">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Clipboard Protection</div>
+                            <div class="setting-description">Monitor clipboard changes</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked id="toggle-clipboard">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Network Monitoring</div>
+                            <div class="setting-description">Detect port scanning</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked id="toggle-network">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="card settings-section">
+                    <h3>🔔 Notifications</h3>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Pop-up Alerts</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked id="toggle-notifications">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Sound Alerts</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggle-sound">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="card settings-section">
+                    <h3>💾 Data Management</h3>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Clear All Logs</div>
+                            <div class="setting-description">Delete all activity history</div>
+                        </div>
+                        <button class="btn btn-secondary" onclick="clearLogs()">Clear</button>
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Export Logs</div>
+                            <div class="setting-description">Save logs to file</div>
+                        </div>
+                        <button class="btn btn-secondary" onclick="exportLogs()">Export</button>
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Clear Alerts</div>
+                            <div class="setting-description">Delete all alert history</div>
+                        </div>
+                        <button class="btn btn-secondary" onclick="clearAlerts()">Clear</button>
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Clear Quarantine</div>
+                            <div class="setting-description">Delete all quarantined items</div>
+                        </div>
+                        <button class="btn btn-secondary" onclick="deleteAll()">Clear</button>
+                    </div>
+                </div>
+
+                <div class="card settings-section">
+                    <h3>🔄 System Update</h3>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Current Version</div>
+                            <div class="setting-description">Installed version of Sentinel Shield</div>
+                        </div>
+                        <div style="color: var(--gold); font-weight: 600;" id="current-version">v1.0.0</div>
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Auto-Check for Updates</div>
+                            <div class="setting-description">Check for updates on startup</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggle-auto-update">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Check for Updates</div>
+                            <div class="setting-description">Manually check for available updates</div>
+                        </div>
+                        <button class="btn btn-primary" onclick="checkForUpdatesManual()">🔍 Check Now</button>
+                    </div>
+                    <div class="setting-item" id="update-status-item" style="display: none;">
+                        <div>
+                            <div class="setting-label">Update Status</div>
+                            <div class="setting-description" id="update-status-text">Checking...</div>
+                        </div>
+                        <div id="update-progress-container" style="width: 150px; display: none;">
+                            <div style="height: 6px; background: rgba(201,168,76,0.1); border-radius: 3px; overflow: hidden;">
+                                <div id="update-progress-bar" style="height: 100%; width: 0%; background: linear-gradient(90deg, var(--gold), var(--gold2)); transition: width 0.3s;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Browser Extension Connection -->
+                <div class="card settings-section">
+                    <h3>🌐 Browser Extension</h3>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Extension Status</div>
+                            <div class="setting-description">Connection with browser extension</div>
+                        </div>
+                        <div id="extension-connection-status" style="display:flex;align-items:center;gap:8px;">
+                            <span class="status-dot" id="extension-dot"></span>
+                            <span id="extension-status-text" style="font-size:12px;color:var(--muted);">Checking...</span>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <div>
+                            <div class="setting-label">Last Sync</div>
+                            <div class="setting-description" id="extension-last-sync">Never</div>
+                        </div>
+                        <button class="btn btn-secondary" style="padding:6px 12px;font-size:10px;" onclick="syncWithExtension()">🔄 Sync Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="guardian" class="page-section">
+                <div class="card guardian-container">
+                    <div class="guardian-placeholder">🤖</div>
+                    <h2 class="guardian-title">Guardian Sentinel</h2>
+                    <p class="guardian-description">Your empathic security companion. <em>3D animation coming soon.</em></p>
+                    <button class="btn btn-primary" style="margin-top:20px" onclick="testGuardianMessage()">Test Message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="status-modal" id="status-modal">
+        <div class="status-modal-content">
+            <h2 class="status-modal-title">🔍 Checking System Status</h2>
+            <div class="status-checks" id="status-checks">
+                <div class="status-check-item checking" id="check-engine">
+                    <div class="status-check-icon">⟳</div>
+                    <span>Security Engine</span>
+                </div>
+                <div class="status-check-item" id="check-definitions">
+                    <div class="status-check-icon">○</div>
+                    <span>Threat Definitions</span>
+                </div>
+                <div class="status-check-item" id="check-realtime">
+                    <div class="status-check-icon">○</div>
+                    <span>Real-Time Protection</span>
+                </div>
+                <div class="status-check-item" id="check-firewall">
+                    <div class="status-check-icon">○</div>
+                    <span>Network Monitor</span>
+                </div>
+                <div class="status-check-item" id="check-updates">
+                    <div class="status-check-icon">○</div>
+                    <span>Component Updates</span>
+                </div>
+            </div>
+            <div class="status-result" id="status-result">
+                <div class="status-result-icon">✓</div>
+                <div class="status-result-title">All Systems Operational</div>
+                <div class="status-result-text">All security modules are active and up to date.</div>
+            </div>
+            <button class="status-close-btn" id="status-close-btn" style="display:none;" onclick="closeStatusModal()">Done</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

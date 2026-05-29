@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Generate Icons</title>
+</head>
+<body style="margin:0; display:flex; gap:20px; justify-content:center; align-items:center; height:100vh; background:#1a1a1a;">
+    
+    <!-- 48x48 Icon -->
+    <div>
+        <div style="color:white; text-align:center; margin-bottom:10px;">48x48</div>
+        <canvas id="canvas48" width="48" height="48" style="border:2px solid #333;"></canvas>
+        <button onclick="download48()" style="display:block; margin:10px auto; padding:8px 16px; cursor:pointer;">Download 48px</button>
+    </div>
+    
+    <!-- 128x128 Icon -->
+    <div>
+        <div style="color:white; text-align:center; margin-bottom:10px;">128x128</div>
+        <canvas id="canvas128" width="128" height="128" style="border:2px solid #333;"></canvas>
+        <button onclick="download128()" style="display:block; margin:10px auto; padding:8px 16px; cursor:pointer;">Download 128px</button>
+    </div>
+    
+    <script>
+        function drawIcon(canvasId, size) {
+            const c = document.getElementById(canvasId);
+            const ctx = c.getContext('2d');
+            
+            // Background
+            ctx.fillStyle = '#020810';
+            ctx.fillRect(0, 0, size, size);
+            
+            // Border
+            ctx.strokeStyle = '#c9a84c';
+            ctx.lineWidth = size * 0.06;
+            ctx.strokeRect(0, 0, size, size);
+            
+            // Emoji
+            ctx.font = `${size * 0.6}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = '#c9a84c';
+            ctx.fillText('🛡️', size/2, size/2);
+        }
+        
+        function download48() {
+            const c = document.getElementById('canvas48');
+            const link = document.createElement('a');
+            link.download = 'icon48.png';
+            link.href = c.toDataURL('image/png');
+            link.click();
+        }
+        
+        function download128() {
+            const c = document.getElementById('canvas128');
+            const link = document.createElement('a');
+            link.download = 'icon128.png';
+            link.href = c.toDataURL('image/png');
+            link.click();
+        }
+        
+        // Draw on load
+        drawIcon('canvas48', 48);
+        drawIcon('canvas128', 128);
+    </script>
+</body>
+</html>

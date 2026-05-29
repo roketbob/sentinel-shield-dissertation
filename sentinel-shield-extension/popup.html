@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sentinel Shield</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="logo">
+        <span class="logo-icon">🛡️</span>
+        <span class="logo-text">Sentinel Shield</span>
+      </div>
+      <div class="status" id="status">
+        <span class="status-dot"></span>
+        <span class="status-text">Protected</span>
+      </div>
+    </div>
+
+    <!-- Guardian Message -->
+    <div class="guardian-message" id="guardian-msg">
+      <span class="guardian-icon">🤖</span>
+      <span class="guardian-text" id="guardian-text">Hello! I'm Guardian Sentinel. I'm watching over your browsing.</span>
+    </div>
+
+    <!-- Connection Status -->
+    <div class="connection-status" id="connection-status">
+      <span class="connection-dot" style="background: #4caf50;"></span>
+      <span>🖥️ Desktop App: Connected</span>
+    </div>
+
+    <!-- Quick Settings (NEW) -->
+    <div class="quick-settings">
+      <div class="quick-setting-item">
+        <span>🚫 Block Ads</span>
+        <label class="toggle-switch-mini">
+          <input type="checkbox" id="toggle-ad-block" checked>
+          <span class="toggle-slider-mini"></span>
+        </label>
+      </div>
+      <div class="quick-setting-item">
+        <span>🍪 Auto-Reject Cookies</span>
+        <label class="toggle-switch-mini">
+          <input type="checkbox" id="toggle-cookie-reject" checked>
+          <span class="toggle-slider-mini"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Current URL -->
+    <div class="current-url" id="current-url">
+      <div class="url-label">Current Page</div>
+      <div class="url-value" id="url-value">Loading...</div>
+    </div>
+
+    <!-- Threat Info (hidden by default) -->
+    <div class="threat-info" id="threat-info" style="display: none;">
+      <div class="threat-icon">⚠️</div>
+      <div class="threat-text" id="threat-text">Threat detected!</div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-value" id="threats-blocked">0</div>
+        <div class="stat-label">Threats Blocked</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="pages-protected">0</div>
+        <div class="stat-label">Pages Protected</div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button class="btn btn-primary" id="btn-scan">
+        🔍 Scan Current Page
+      </button>
+      <button class="btn btn-secondary" id="btn-settings">
+        ⚙️ Settings
+      </button>
+      <button class="btn btn-secondary" id="btn-test-threat" style="margin-top: 5px; font-size: 11px; padding: 8px;">
+        🧪 Simulate Threat Detection
+      </button>
+    </div>
+
+    <!-- Privacy Badge -->
+    <div class="privacy-badge">
+      🔒 100% Offline - No data sent to cloud
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <div class="version">v1.0.0</div>
+      <div class="desktop-status" id="desktop-status">
+        <span class="desktop-dot" style="background: #4caf50; animation: pulse 2s infinite;"></span>
+        <span>Desktop App: Connected</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
